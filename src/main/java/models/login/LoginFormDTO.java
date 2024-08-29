@@ -1,4 +1,4 @@
-package dto.login;
+package models.login;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

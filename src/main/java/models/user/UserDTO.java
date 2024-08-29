@@ -1,4 +1,4 @@
-package dto.user;
+package models.user;
 
 import entity.Usuario;
 import lombok.Getter;

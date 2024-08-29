@@ -1,36 +1,48 @@
 package services.user;
 
-import dto.user.UserDTO;
-import dto.user.UserFormDTO;
 import entity.Usuario;
-import globals.Persistence;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.TypedQuery;
-import jakarta.ws.rs.WebApplicationException;
-import jakarta.ws.rs.core.Response;
-import org.mindrot.jbcrypt.BCrypt;
+import jakarta.inject.Inject;
+import models.login.LoginFormDTO;
+import models.user.UserDTO;
+import models.user.UserFormDTO;
+import repository.user.UserRepository;
 import utils.ExceptionUtils;
+import org.mindrot.jbcrypt.BCrypt;
 
 @ApplicationScoped
-public class UserService extends Persistence {
+public class UserService {
 
-    public UserDTO validateUser(String username, String password) {
-        TypedQuery<Usuario> query = persistence.createQuery("""
-                SELECT new dto.user.UserDTO(u)
-                FROM Usuario u
-                WHERE u.username = :username
-                """, Usuario.class);
-        query.setParameter("username", username);
+    @Inject
+    UserRepository userRepository;
 
-        try {
-            Usuario user = query.getSingleResult();
-            if (checkPassword(password, user.getSenha())) {
-                return new UserDTO(user);
+    public void createUser(UserFormDTO user) {
 
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
+        if (userRepository.usernameExists(user.getUsername())) {
+            ExceptionUtils.throwConflictException("Nome de usuário já existe.");
+            return;
+        }
+        if (userRepository.emailExists(user.getEmail())) {
+            ExceptionUtils.throwConflictException("E-mail já existe.");
+            return;
+        }
+
+        userRepository.createUser(user);
+    }
+
+    public UserDTO validateUser(LoginFormDTO data) {
+        Usuario user = userRepository.getUserByUsername(data.getUsername());
+
+        if (user == null) {
+            ExceptionUtils.throwInternalErrorException("Usuário não encontrado.");
+            return null;
+        }
+
+        if (checkPassword(data.getPassword(), user.getSenha())) {
+            return new UserDTO(user);
+
+        } else {
+            ExceptionUtils.throwBadRequestException("Senha inválida.");
             return null;
         }
     }
@@ -42,43 +54,4 @@ public class UserService extends Persistence {
     public boolean checkPassword(String plainPassword, String hashedPassword) {
         return BCrypt.checkpw(plainPassword, hashedPassword);
     }
-
-    public void createUser(UserFormDTO user) {
-
-        try {
-            if (usernameExists(user.getUsername())) {
-                ExceptionUtils.throwConflictException("Nome de usuário já existe.");
-            }
-            if (emailExists(user.getEmail())) {
-                ExceptionUtils.throwConflictException("E-mail já existe.");
-            }
-
-            Usuario newUser = new Usuario();
-            newUser.setUsername(user.getUsername());
-            newUser.setEmail(user.getEmail());
-            newUser.setSenha(hashPassword(user.getPassword()));
-            persistence.persist(newUser);
-
-        } catch (WebApplicationException e) {
-            throw e;
-        } catch (Exception e) {
-            System.out.println("Erro interno no servidor.");
-            System.out.println(e);
-            ExceptionUtils.throwInternalErrorException("Erro interno no servidor.");
-        }
-
-    }
-
-    private boolean usernameExists(String username) {
-        TypedQuery<Long> query = persistence.createQuery("SELECT COUNT(u) FROM Usuario u WHERE u.username = :username", Long.class);
-        query.setParameter("username", username);
-        return query.getSingleResult() > 0;
-    }
-
-    private boolean emailExists(String email) {
-        TypedQuery<Long> query = persistence.createQuery("SELECT COUNT(u) FROM Usuario u WHERE u.email = :email", Long.class);
-        query.setParameter("email", email);
-        return query.getSingleResult() > 0;
-    }
-
 }

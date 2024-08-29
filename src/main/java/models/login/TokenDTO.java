@@ -1,4 +1,4 @@
-package dto.login;
+package models.login;
 
 import lombok.Getter;
 

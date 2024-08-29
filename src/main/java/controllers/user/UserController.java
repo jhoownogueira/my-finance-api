@@ -1,6 +1,6 @@
 package controllers.user;
 
-import dto.user.UserFormDTO;
+import models.user.UserFormDTO;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

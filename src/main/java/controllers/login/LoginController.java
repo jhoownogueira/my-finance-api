@@ -1,8 +1,8 @@
 package controllers.login;
 
-import dto.login.LoginFormDTO;
-import dto.login.TokenDTO;
-import dto.user.UserDTO;
+import models.login.LoginFormDTO;
+import models.login.TokenDTO;
+import models.user.UserDTO;
 import globals.JwtService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -26,15 +26,8 @@ public class LoginController {
     @Transactional
     @Path("/login")
     public Response login(@Valid LoginFormDTO data) {
-        UserDTO user = userService.validateUser(data.getUsername(), data.getPassword());
+        UserDTO user = userService.validateUser(data);
         String token = jwtService.generateToken(user.getUsername(), user.getId(), user.getEmail());
         return Response.ok(new TokenDTO(token)).build();
     }
-
-//    @POST
-//    @Path("/refresh-token")
-//    public Response refreshToken(@HeaderParam("Authorization") String token) {
-//        String newToken = tokenService.refreshToken(token);
-//        return Response.ok(newToken).build();
-//    }
 }
