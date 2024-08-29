@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import models.account.AccountDTO;
 import models.account.AccountForm;
-import repository.account.AccountRepository;
+import repositories.AccountRepository;
 
 import java.util.List;
 import java.util.UUID;

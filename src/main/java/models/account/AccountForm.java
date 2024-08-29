@@ -1,6 +1,6 @@
 package models.account;
 
-import entity.AccountType;
+import entity.account.AccountType;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

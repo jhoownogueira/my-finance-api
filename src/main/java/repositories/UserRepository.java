@@ -1,9 +1,9 @@
-package repository.user;
+package repositories;
 
 import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
 import models.user.UserForm;
-import entity.Usuario;
+import entity.usuario.Usuario;
 import globals.Persistence;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.TypedQuery;

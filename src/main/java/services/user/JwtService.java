@@ -1,4 +1,4 @@
-package globals;
+package services.user;
 
 import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;

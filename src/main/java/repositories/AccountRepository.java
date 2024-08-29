@@ -1,7 +1,7 @@
-package repository.account;
+package repositories;
 
-import entity.Account;
-import entity.Usuario;
+import entity.account.Account;
+import entity.usuario.Usuario;
 import globals.Persistence;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;

@@ -1,6 +1,6 @@
 package models.user;
 
-import entity.Usuario;
+import entity.usuario.Usuario;
 import lombok.Getter;
 
 import java.util.UUID;

@@ -1,12 +1,12 @@
 package services.user;
 
-import entity.Usuario;
+import entity.usuario.Usuario;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import models.login.LoginForm;
 import models.user.UserDTO;
 import models.user.UserForm;
-import repository.user.UserRepository;
+import repositories.UserRepository;
 import utils.ExceptionUtils;
 import org.mindrot.jbcrypt.BCrypt;
 

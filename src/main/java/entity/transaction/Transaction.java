@@ -1,51 +1,47 @@
-package entity;
+package entity.transaction;
 
+import entity.account.Account;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "payments")
-public class Payment {
+@Table(name = "transactions")
+public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, updatable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
     @NotNull
-    @Column(name = "installment_number", nullable = false)
-    private Integer installmentNumber;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 20)
+    private TransactionType type;
 
     @NotNull
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;
 
-    @NotNull
-    @Column(name = "payment_date", nullable = false)
-    private LocalDate paymentDate;
+    @Column(name = "description")
+    private String description;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
-    private PaymentStatus status;
+    @Column(name = "date", nullable = false)
+    private LocalDate date;
 
     @NotNull
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 }
 
-enum PaymentStatus {
-    PENDING,
-    PAID
-}

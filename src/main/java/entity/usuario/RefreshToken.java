@@ -1,4 +1,4 @@
-package entity;
+package entity.usuario;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

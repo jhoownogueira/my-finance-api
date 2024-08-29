@@ -3,7 +3,7 @@ package controllers.login;
 import models.login.LoginForm;
 import models.login.TokenDTO;
 import models.user.UserDTO;
-import globals.JwtService;
+import services.user.JwtService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
