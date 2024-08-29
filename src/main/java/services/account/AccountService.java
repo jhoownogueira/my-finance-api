@@ -26,4 +26,12 @@ public class AccountService {
     public AccountDTO getAccountById(UUID id) {
         return accountRepository.getAccountById(id);
     }
+
+    public void updateAccount(UUID id, AccountForm account) {
+        accountRepository.updateAccount(id, account);
+    }
+
+    public void deleteAccount(UUID id) {
+        accountRepository.deleteAccount(id);
+    }
 }
