@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserFormDTO {
+public class UserForm {
 
         @NotNull
         @NotBlank(message = "Username is required")
@@ -28,7 +28,7 @@ public class UserFormDTO {
         @NotBlank(message = "Password is required")
         private String password;
 
-        public UserFormDTO(String username, String email, String password) {
+        public UserForm(String username, String email, String password) {
             this.username = username;
             this.email = email;
             this.password = password;

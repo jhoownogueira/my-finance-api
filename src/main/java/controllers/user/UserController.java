@@ -1,6 +1,6 @@
 package controllers.user;
 
-import models.user.UserFormDTO;
+import models.user.UserForm;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -17,7 +17,7 @@ public class UserController {
 
     @POST
     @Transactional
-    public Response registerUser(@Valid UserFormDTO data) {
+    public Response registerUser(@Valid UserForm data) {
         userService.createUser(data);
         return Response.ok().build();
     }

@@ -3,9 +3,9 @@ package services.user;
 import entity.Usuario;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import models.login.LoginFormDTO;
+import models.login.LoginForm;
 import models.user.UserDTO;
-import models.user.UserFormDTO;
+import models.user.UserForm;
 import repository.user.UserRepository;
 import utils.ExceptionUtils;
 import org.mindrot.jbcrypt.BCrypt;
@@ -16,7 +16,7 @@ public class UserService {
     @Inject
     UserRepository userRepository;
 
-    public void createUser(UserFormDTO user) {
+    public void createUser(UserForm user) {
 
         if (userRepository.usernameExists(user.getUsername())) {
             ExceptionUtils.throwConflictException("Nome de usuário já existe.");
@@ -30,7 +30,7 @@ public class UserService {
         userRepository.createUser(user);
     }
 
-    public UserDTO validateUser(LoginFormDTO data) {
+    public UserDTO validateUser(LoginForm data) {
         Usuario user = userRepository.getUserByUsername(data.getUsername());
 
         if (user == null) {

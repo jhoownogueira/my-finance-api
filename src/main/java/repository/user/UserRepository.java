@@ -2,7 +2,7 @@ package repository.user;
 
 import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
-import models.user.UserFormDTO;
+import models.user.UserForm;
 import entity.Usuario;
 import globals.Persistence;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -32,7 +32,7 @@ public class UserRepository extends Persistence {
         }
     }
 
-    public void createUser(UserFormDTO user) {
+    public void createUser(UserForm user) {
         try {
             Usuario newUser = new Usuario();
             newUser.setUsername(user.getUsername());

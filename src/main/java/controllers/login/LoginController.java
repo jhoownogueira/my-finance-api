@@ -1,6 +1,6 @@
 package controllers.login;
 
-import models.login.LoginFormDTO;
+import models.login.LoginForm;
 import models.login.TokenDTO;
 import models.user.UserDTO;
 import globals.JwtService;
@@ -25,7 +25,7 @@ public class LoginController {
     @POST
     @Transactional
     @Path("/login")
-    public Response login(@Valid LoginFormDTO data) {
+    public Response login(@Valid LoginForm data) {
         UserDTO user = userService.validateUser(data);
         String token = jwtService.generateToken(user.getUsername(), user.getId(), user.getEmail());
         return Response.ok(new TokenDTO(token)).build();

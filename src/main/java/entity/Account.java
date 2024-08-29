@@ -52,7 +52,3 @@ public class Account {
     private LocalDateTime createdAt = LocalDateTime.now();
 }
 
-enum AccountType {
-    FIXED,
-    INSTALLMENT
-}

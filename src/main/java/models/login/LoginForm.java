@@ -1,14 +1,10 @@
 package models.login;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class LoginFormDTO {
+@Data
+public class LoginForm {
 
     @NotNull(message = "Username is required")
     private String username;
