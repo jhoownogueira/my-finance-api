@@ -6,12 +6,13 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 public class AccountForm {
 
     @NotNull(message = "User id is required")
-    private Integer userId;
+    private UUID userId;
 
     @NotNull(message = "Name is required")
     private String name;

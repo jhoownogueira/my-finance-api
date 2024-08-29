@@ -10,6 +10,7 @@ import models.account.AccountForm;
 import utils.ExceptionUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class AccountRepository extends Persistence {
@@ -37,10 +38,17 @@ public class AccountRepository extends Persistence {
         }
     }
 
-    public List<AccountDTO> getAccountsByUserId(Integer userId) {
+    public List<AccountDTO> getAccountsByUserId(UUID userId) {
         String query = "SELECT new models.account.AccountDTO(a.id, a.name, a.type, a.amount, a.installments, a.startDate, a.endDate, a.createdAt) FROM Account a WHERE a.user.id = :userId";
         return persistence.createQuery(query, AccountDTO.class)
                 .setParameter("userId", userId)
                 .getResultList();
+    }
+
+    public AccountDTO getAccountById(UUID id) {
+        String query = "SELECT new models.account.AccountDTO(a.id, a.name, a.type, a.amount, a.installments, a.startDate, a.endDate, a.createdAt) FROM Account a WHERE a.id = :id";
+        return persistence.createQuery(query, AccountDTO.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }

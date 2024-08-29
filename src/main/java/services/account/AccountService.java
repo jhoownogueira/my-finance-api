@@ -7,6 +7,7 @@ import models.account.AccountForm;
 import repository.account.AccountRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class AccountService {
@@ -18,7 +19,11 @@ public class AccountService {
         accountRepository.createAccount(account);
     }
 
-    public List<AccountDTO> getAccountsByUserId(Integer userId) {
+    public List<AccountDTO> getAccountsByUserId(UUID userId) {
         return accountRepository.getAccountsByUserId(userId);
+    }
+
+    public AccountDTO getAccountById(UUID id) {
+        return accountRepository.getAccountById(id);
     }
 }

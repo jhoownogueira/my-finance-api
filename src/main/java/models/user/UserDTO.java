@@ -3,10 +3,12 @@ package models.user;
 import entity.Usuario;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Getter
 public class UserDTO {
 
-    private Integer id;
+    private UUID id;
     private String username;
     private String email;
 

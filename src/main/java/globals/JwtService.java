@@ -8,11 +8,12 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.UUID;
 
 @ApplicationScoped
 public class JwtService {
 
-    public String generateToken(String username, Integer id, String email) {
+    public String generateToken(String username, UUID id, String email) {
         String signingKey = ConfigProvider.getConfig().getValue("smallrye.jwt.sign.key", String.class);
         return Jwt.issuer("https://jhonata.pro/my-finance-api")
                 .upn("jhonata@jhonata.pro")

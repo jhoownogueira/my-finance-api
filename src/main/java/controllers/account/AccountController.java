@@ -11,6 +11,8 @@ import models.account.AccountForm;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import services.account.AccountService;
 
+import java.util.UUID;
+
 @Path("/account")
 public class AccountController {
 
@@ -26,7 +28,13 @@ public class AccountController {
 
     @GET
     @Path("/user/{userId}")
-    public Response getAccountsByUserId(@PathParam Integer userId) {
+    public Response getAccountsByUserId(@PathParam UUID userId) {
         return Response.ok(accountService.getAccountsByUserId(userId)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response getAccountById(@PathParam UUID id) {
+        return Response.ok(accountService.getAccountById(id)).build();
     }
 }

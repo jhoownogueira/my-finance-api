@@ -6,11 +6,12 @@ import lombok.Getter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 public class AccountDTO {
 
-    private Integer id;
+    private UUID id;
     private String name;
     private AccountType type;
     private BigDecimal amount;
@@ -19,7 +20,7 @@ public class AccountDTO {
     private LocalDate endDate;
     private LocalDateTime createdAt;
 
-    public AccountDTO(Integer id, String name, AccountType type, BigDecimal amount, Integer installments, LocalDate startDate, LocalDate endDate, LocalDateTime createdAt) {
+    public AccountDTO(UUID id, String name, AccountType type, BigDecimal amount, Integer installments, LocalDate startDate, LocalDate endDate, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.type = type;
